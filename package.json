@@ -1,0 +1,63 @@
+{
+  "name": "react-repo-card",
+  "version": "1.0.0",
+  "description": "A React component for the GitHub repository card",
+  "license": "MIT",
+  "repository": "dawsonbooth/react-repo-card",
+  "keywords": [
+    "frontend",
+    "react",
+    "typescript",
+    "repo",
+    "card",
+    "github"
+  ],
+  "author": {
+    "name": "Dawson Booth",
+    "email": "npmjs@dawsonbooth.com",
+    "url": "https://github.com/dawsonbooth"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "lint": "eslint src/**/* --fix",
+    "test": "jest",
+    "build": "tsc",
+    "docs": "yarn typedoc",
+    "postdocs": "touch docs/.nojekyll"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "string-replace-to-array": "^1.0.3"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1",
+    "@octokit/types": "^5.0.1",
+    "@testing-library/jest-dom": "^5.10.1",
+    "@testing-library/react": "^10.3.0",
+    "@types/jest": "^26.0.0",
+    "@types/react": "^16.9.18",
+    "@typescript-eslint/eslint-plugin": "^2.21.0",
+    "@typescript-eslint/parser": "^2.21.0",
+    "babel-jest": "^26.0.1",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.3",
+    "jest": "^26.0.1",
+    "prettier": "^1.19.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.13.1",
+    "ts-jest": "^26.1.0",
+    "typedoc": "^0.16.8",
+    "typescript": "^3.6.2"
+  },
+  "peerDependencies": {}
+}
