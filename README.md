@@ -3,7 +3,6 @@
 
 [![npm version](http://img.shields.io/npm/v/react-repo-card.svg?style=flat)](https://npmjs.org/package/react-repo-card)
 [![downloads](http://img.shields.io/npm/dt/react-repo-card.svg?style=flat)](https://npmjs.org/package/react-repo-card)
-[![build status](https://github.com/dawsonbooth/react-repo-card/workflows/build/badge.svg)](https://github.com/dawsonbooth/react-repo-card/actions?workflow=build)
 [![license](https://img.shields.io/npm/l/react-repo-card.svg?style=flat)](https://github.com/dawsonbooth/react-repo-card/blob/master/LICENSE)
 
 </div>
