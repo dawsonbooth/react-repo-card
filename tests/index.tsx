@@ -17,7 +17,7 @@ it("RepoCard", async () => {
     () => {
       expect(container.textContent).toContain("ascii-art");
       expect(container.textContent).toContain(
-        "ASCII art generator with several customization parameters"
+        "ASCII art generator with several parameters"
       );
       expect(container.textContent).toContain("Python");
     },
