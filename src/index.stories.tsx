@@ -10,7 +10,20 @@ export default {
   title: "Repo Card"
 } as Meta;
 
-const Template: Story<RepoCardPropTypes> = args => <RepoCard {...args} />;
+const Template: Story<RepoCardPropTypes> = args => (
+  <div
+    style={{
+      position: "absolute",
+      margin: 0,
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      maxWidth: 400
+    }}
+  >
+    <RepoCard {...args} />
+  </div>
+);
 
 export const Basic = Template.bind({});
 
