@@ -152,7 +152,11 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
             />
           </svg>
           <span style={{ fontWeight: 600, color: "#0366d6" }}>
-            <a style={{ textDecoration: "none", color: "inherit" }} href={url}>
+            <a
+              style={{ textDecoration: "none", color: "inherit" }}
+              href={url}
+              target="_blank"
+            >
               {name}
             </a>
           </span>
@@ -193,6 +197,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           <a
             style={{ textDecoration: "none", color: "inherit" }}
             href={data.html_url}
+            target="_blank"
           >
             {data.name}
           </a>
@@ -209,6 +214,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
         <a
           style={{ color: "inherit", textDecoration: "none" }}
           href={data.fork ? data.source.html_url : ""}
+          target="_blank"
         >
           {data.fork ? data.source.full_name : ""}
         </a>
