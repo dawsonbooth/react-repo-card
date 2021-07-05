@@ -24,7 +24,6 @@ export const useFetch = (url: string): [any, boolean, boolean] => {
         setLoading(false);
       });
   }, [url]);
-  console.log(response);
   return [response, loading, hasError];
 };
 
