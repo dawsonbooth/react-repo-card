@@ -22,7 +22,7 @@ it("RepoCard", async () => {
       expect(container.textContent).toContain("Python");
     },
     {
-      container
+      container,
     }
   );
 });
