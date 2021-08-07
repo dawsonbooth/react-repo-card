@@ -8,14 +8,14 @@ import replace from "string-replace-to-array";
  *
  * @returns The content that is fetched, a loading boolean, and a hasError boolean
  */
-export const useFetch = (url: string): [any, boolean, boolean] => {
+export const useFetch = (url: string): [unknown, boolean, boolean] => {
   const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   useEffect(() => {
     setLoading(true);
     fetch(url)
-      .then(async resp => {
+      .then(async (resp) => {
         setResponse(await resp.json());
         setLoading(false);
       })
@@ -36,17 +36,40 @@ export const useEmojis = (): [
   Endpoints["GET /emojis"]["response"],
   boolean,
   boolean
-] => useFetch("https://api.github.com/emojis");
+] =>
+  useFetch("https://api.github.com/emojis") as [
+    Endpoints["GET /emojis"]["response"],
+    boolean,
+    boolean
+  ];
 
 /**
  * This is a hook for fetching the GitHub colors from [ozh/github-colors](https://raw.githubusercontent.com/ozh/github-colors/master/colors.json).
  *
  * @returns The content that is fetched, a loading boolean, and a hasError boolean
  */
-export const useColors = (): [object, boolean, boolean] =>
+export const useColors = (): [
+  {
+    [key: string]: {
+      color: string;
+      url: string;
+    };
+  },
+  boolean,
+  boolean
+] =>
   useFetch(
     "https://raw.githubusercontent.com/ozh/github-colors/master/colors.json"
-  );
+  ) as [
+    {
+      [key: string]: {
+        color: string;
+        url: string;
+      };
+    },
+    boolean,
+    boolean
+  ];
 
 /**
  * This is a hook for fetching the [repository information](https://api.github.com/repos/) from the official GitHub API.
@@ -57,10 +80,15 @@ export const useGitHubRepo = (
   username: string,
   repository: string
 ): [
-  Endpoints["GET /repos/:owner/:repo"]["response"]["data"],
+  Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"],
   boolean,
   boolean
-] => useFetch(`https://api.github.com/repos/${username}/${repository}`);
+] =>
+  useFetch(`https://api.github.com/repos/${username}/${repository}`) as [
+    Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"],
+    boolean,
+    boolean
+  ];
 
 export const GitHubEmoji: React.FC<GitHubEmojiPropTypes> = ({ name }) => {
   const [emojis, loading] = useEmojis();
@@ -100,7 +128,7 @@ export const GitHubEmoji: React.FC<GitHubEmojiPropTypes> = ({ name }) => {
 const RepoCard: React.FC<RepoCardPropTypes> = ({
   username,
   repository,
-  Loading
+  Loading,
 }) => {
   const [data, loadingData] = useGitHubRepo(username, repository);
   const [colors, loadingColors] = useColors();
@@ -134,7 +162,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           padding: "16px",
           fontSize: "14px",
           lineHeight: "1.5",
-          color: "#24292e"
+          color: "#24292e",
         }}
       >
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -177,7 +205,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
         padding: "16px",
         fontSize: "14px",
         lineHeight: "1.5",
-        color: "#24292e"
+        color: "#24292e",
       }}
     >
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -209,7 +237,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
         style={{
           display: data.fork ? "block" : "none",
           fontSize: "12px",
-          color: "#586069"
+          color: "#586069",
         }}
       >
         Forked from{" "}
@@ -227,7 +255,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           fontSize: "12px",
           marginBottom: "16px",
           marginTop: "8px",
-          color: "#586069"
+          color: "#586069",
         }}
       >
         {data.description}
@@ -242,7 +270,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
               backgroundColor: colors[data.language].color,
               display: "inline-block",
               top: "1px",
-              position: "relative"
+              position: "relative",
             }}
           />
           &nbsp;
@@ -252,7 +280,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           style={{
             display: data.stargazers_count === 0 ? "none" : "flex",
             alignItems: "center",
-            marginRight: "16px"
+            marginRight: "16px",
           }}
         >
           <svg
@@ -274,7 +302,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
         <div
           style={{
             display: data.forks_count === 0 ? "none" : "flex",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <svg

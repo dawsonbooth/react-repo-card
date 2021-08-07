@@ -3,31 +3,29 @@ module.exports = {
   env: {
     es6: true,
     node: true,
-    jest: true
+    jest: true,
   },
   extends: [
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
     "plugin:prettier/recommended",
-    "prettier/react",
-    "prettier/@typescript-eslint"
   ],
   plugins: ["react"],
   rules: {
-    "react/prop-types": "off"
+    "react/prop-types": "off",
   },
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
-      impliedStrict: true
+      impliedStrict: true,
     },
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-    sourceType: "module" // Allows for the use of imports
+    sourceType: "module", // Allows for the use of imports
   },
   settings: {
     react: {
-      version: "detect"
-    }
-  }
+      version: "detect",
+    },
+  },
 };
