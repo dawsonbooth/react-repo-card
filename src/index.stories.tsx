@@ -5,12 +5,7 @@ import { Story, Meta } from "@storybook/react";
 import RepoCard from ".";
 import { RepoCardPropTypes } from "./types";
 
-export default {
-  component: RepoCard,
-  title: "Repo Card"
-} as Meta;
-
-const Template: Story<RepoCardPropTypes> = args => (
+export const Example: Story<RepoCardPropTypes> = (args) => (
   <div
     style={{
       position: "absolute",
@@ -18,16 +13,19 @@ const Template: Story<RepoCardPropTypes> = args => (
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",
-      maxWidth: 400
+      maxWidth: 400,
     }}
   >
     <RepoCard {...args} />
   </div>
 );
 
-export const Basic = Template.bind({});
-
-Basic.args = {
+Example.args = {
   username: "dawsonbooth",
-  repository: "react-repo-card"
+  repository: "react-repo-card",
 };
+
+export default {
+  component: RepoCard,
+  title: "Example",
+} as Meta;

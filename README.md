@@ -1,4 +1,5 @@
 # `react-repo-card`
+
 <div align="center">
 
 [![npm version](http://img.shields.io/npm/v/react-repo-card.svg?style=flat)](https://npmjs.org/package/react-repo-card)
@@ -21,7 +22,7 @@ npm install react-repo-card
 
 # Usage
 
-Check out the examples below or [check out the docs](https://dawsonbooth.github.io/react-repo-card/).
+Check out the examples below or [check out the storybook](https://dawsonbooth.github.io/react-repo-card/).
 
 The package comes with a main RepoCard component and a few hooks that make it work. Here's an example of how it works:
 
@@ -36,7 +37,6 @@ const App = () => {
     </div>
   );
 };
-
 ```
 
 # License
@@ -44,4 +44,5 @@ const App = () => {
 This software is released under the terms of the [MIT license](LICENSE).
 
 # Acknowledgments
+
 - This package is based on Tarptaeya's [repo-card](https://github.com/Tarptaeya/repo-card)
