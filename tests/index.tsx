@@ -5,6 +5,7 @@ import { render, waitFor } from "@testing-library/react";
 
 import fetch from "node-fetch";
 
+// @ts-expect-error: `global.fetch` does not have the same types as `fetch`
 global.fetch = fetch;
 
 it("RepoCard", async () => {

@@ -3,4 +3,5 @@ module.exports = {
   roots: ["<rootDir>/tests"],
   testRegex: "tests/.*",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  testEnvironment: "jsdom",
 };
