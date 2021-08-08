@@ -12,7 +12,8 @@
     "declaration": true,
     // "module": "es5", // Specifies module system
     "outDir": "./dist",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "skipLibCheck": true
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]
