@@ -1,5 +1,6 @@
 module.exports = {
-  parser: "@typescript-eslint/parser", // Specifies the ESLint parser
+  parser: "@typescript-eslint/parser",
+  // Specifies the ESLint parser
   env: {
     es6: true,
     node: true,
@@ -10,6 +11,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "prettier",
     "plugin:prettier/recommended",
+    "plugin:storybook/recommended",
   ],
   plugins: ["react"],
   rules: {
@@ -20,7 +22,8 @@ module.exports = {
       jsx: true,
       impliedStrict: true,
     },
-    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
+    ecmaVersion: 2018,
+    // Allows for the parsing of modern ECMAScript features
     sourceType: "module", // Allows for the use of imports
   },
   settings: {

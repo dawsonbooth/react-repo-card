@@ -10,7 +10,7 @@
     "strict": false,
     "target": "es6",
     "declaration": true,
-    // "module": "es5", // Specifies module system
+    "module": "esnext",
     "outDir": "./dist",
     "downlevelIteration": true,
     "skipLibCheck": true
