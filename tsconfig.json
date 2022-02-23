@@ -8,9 +8,9 @@
     "lib": ["es6", "dom"],
     "moduleResolution": "node",
     "strict": false,
-    "target": "es6",
+    "target": "esnext",
     "declaration": true,
-    "module": "esnext",
+    "module": "commonjs",
     "outDir": "./dist",
     "downlevelIteration": true,
     "skipLibCheck": true

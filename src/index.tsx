@@ -137,9 +137,10 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
     return Loading ? <Loading /> : <></>;
   }
 
-  let emojiCount = 0;
-  if (data.description)
-    data.description = replace(data.description, /:\w+:/g, (match: string) => {
+  let description: React.ReactNode = data.description;
+  if (data.description) {
+    let emojiCount = 0;
+    description = replace(data.description, /:\w+:/g, (match: string) => {
       emojiCount += 1;
       return (
         <GitHubEmoji
@@ -148,7 +149,9 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
         />
       );
     });
-  else {
+  }
+
+  if (!description) {
     const name = `${username}/${repository}`;
     const url = `https://github.com/${name}`;
     return (
@@ -258,7 +261,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           color: "#586069",
         }}
       >
-        {data.description}
+        {description}
       </div>
       <div style={{ fontSize: "12px", color: "#586069", display: "flex" }}>
         <div style={{ marginRight: "16px" }}>
