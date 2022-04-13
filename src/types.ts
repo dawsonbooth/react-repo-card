@@ -4,6 +4,7 @@ export * from "@octokit/types";
 export interface RepoCardPropTypes {
   username: string;
   repository: string;
+  useDarkTheme: boolean;
   Loading?: typeof React.Component;
 }
 
