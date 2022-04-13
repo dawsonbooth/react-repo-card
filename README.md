@@ -34,7 +34,7 @@ import RepoCard from "react-repo-card";
 const App = () => {
   return (
     <div style={{ width: "405px" }}>
-      <RepoCard username="tarptaeya" repository="repo-card" />
+      <RepoCard username="tarptaeya" repository="repo-card" useDarkTheme={true} /> // useDarkTheme is an optional boolean parameter while others are required.
     </div>
   );
 };
