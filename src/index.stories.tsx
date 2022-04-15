@@ -1,7 +1,5 @@
+import { Meta, Story } from "@storybook/react";
 import React from "react";
-
-import { Story, Meta } from "@storybook/react";
-
 import RepoCard from ".";
 import { RepoCardPropTypes } from "./types";
 
@@ -23,6 +21,7 @@ export const Example: Story<RepoCardPropTypes> = (args) => (
 Example.args = {
   username: "dawsonbooth",
   repository: "react-repo-card",
+  dark: false,
 };
 
 export default {
