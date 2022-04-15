@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { RepoCardPropTypes, Endpoints, GitHubEmojiPropTypes } from "./types";
+import React, { useEffect, useState } from "react";
 import replace from "string-replace-to-array";
+import { Endpoints, GitHubEmojiPropTypes, RepoCardPropTypes } from "./types";
 
 /**
  * This is a utility hook for fetching miscellaneous content.
@@ -78,8 +78,7 @@ export const useColors = (): [
  */
 export const useGitHubRepo = (
   username: string,
-  repository: string,
-  dark?: boolean
+  repository: string
 ): [
   Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"],
   boolean,
@@ -129,11 +128,11 @@ export const GitHubEmoji: React.FC<GitHubEmojiPropTypes> = ({ name }) => {
 const RepoCard: React.FC<RepoCardPropTypes> = ({
   username,
   repository,
-  useDarkTheme,
+  dark,
   Loading,
 }) => {
-  const [data, loadingData] = useGitHubRepo(username, repository, useDarkTheme);
-  const bgColor = useDarkTheme ? "#0d1117" : "white"
+  const [data, loadingData] = useGitHubRepo(username, repository);
+  const bgColor = dark ? "#0d1118" : "white";
   const [colors, loadingColors] = useColors();
 
   if (loadingData || loadingColors) {
