@@ -133,12 +133,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
   Loading,
 }) => {
   const [data, loadingData] = useGitHubRepo(username, repository, useDarkTheme);
-  var bgColor;
-  if (useDarkTheme == true) {
-    bgColor = "#0d1117";
-  } else {
-    bgColor = "white"
-  }
+  const bgColor = useDarkTheme ? "#0d1117" : "white"
   const [colors, loadingColors] = useColors();
 
   if (loadingData || loadingColors) {
