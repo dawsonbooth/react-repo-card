@@ -79,7 +79,7 @@ export const useColors = (): [
 export const useGitHubRepo = (
   username: string,
   repository: string,
-  useDarkTheme: boolean
+  dark?: boolean
 ): [
   Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"],
   boolean,
