@@ -78,7 +78,8 @@ export const useColors = (): [
  */
 export const useGitHubRepo = (
   username: string,
-  repository: string
+  repository: string,
+  dark?: boolean
 ): [
   Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"],
   boolean,
@@ -128,9 +129,11 @@ export const GitHubEmoji: React.FC<GitHubEmojiPropTypes> = ({ name }) => {
 const RepoCard: React.FC<RepoCardPropTypes> = ({
   username,
   repository,
+  useDarkTheme,
   Loading,
 }) => {
-  const [data, loadingData] = useGitHubRepo(username, repository);
+  const [data, loadingData] = useGitHubRepo(username, repository, useDarkTheme);
+  const bgColor = useDarkTheme ? "#0d1117" : "white"
   const [colors, loadingColors] = useColors();
 
   if (loadingData || loadingColors) {
@@ -161,7 +164,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
             "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji",
           border: "1px solid #e1e4e8",
           borderRadius: "6px",
-          background: "white",
+          background: bgColor,
           padding: "16px",
           fontSize: "14px",
           lineHeight: "1.5",
@@ -204,7 +207,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji",
         border: "1px solid #e1e4e8",
         borderRadius: "6px",
-        background: "white",
+        background: bgColor,
         padding: "16px",
         fontSize: "14px",
         lineHeight: "1.5",
