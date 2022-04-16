@@ -132,7 +132,19 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
   Loading,
 }) => {
   const [data, loadingData] = useGitHubRepo(username, repository);
-  const bgColor = dark ? "#0d1118" : "white";
+  const palette = dark
+    ? {
+        background: "#1e1e1e",
+        textColor: "#58a6ff",
+        borderColor: "#30363d",
+        iconColor: "#8b949e",
+      }
+    : {
+        background: "white",
+        textColor: "#0969da",
+        borderColor: "#d0d7de",
+        iconColor: "#57606a",
+      };
   const [colors, loadingColors] = useColors();
 
   if (loadingData || loadingColors) {
@@ -161,9 +173,10 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
         style={{
           fontFamily:
             "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji",
-          border: "1px solid #e1e4e8",
+          border: "1px solid",
+          borderColor: palette.borderColor,
           borderRadius: "6px",
-          background: bgColor,
+          background: palette.background,
           padding: "16px",
           fontSize: "14px",
           lineHeight: "1.5",
@@ -172,7 +185,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
       >
         <div style={{ display: "flex", alignItems: "center" }}>
           <svg
-            style={{ fill: "#586069", marginRight: "8px" }}
+            style={{ fill: palette.iconColor, marginRight: "8px" }}
             viewBox="0 0 16 16"
             version="1.1"
             width={16}
@@ -184,7 +197,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
               d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"
             />
           </svg>
-          <span style={{ fontWeight: 600, color: "#0366d6" }}>
+          <span style={{ fontWeight: 600, color: palette.textColor }}>
             <a
               style={{ textDecoration: "none", color: "inherit" }}
               href={url}
@@ -204,9 +217,10 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
       style={{
         fontFamily:
           "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji",
-        border: "1px solid #e1e4e8",
+        border: "1px solid",
+        borderColor: palette.borderColor,
         borderRadius: "6px",
-        background: bgColor,
+        background: palette.background,
         padding: "16px",
         fontSize: "14px",
         lineHeight: "1.5",
@@ -215,7 +229,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
     >
       <div style={{ display: "flex", alignItems: "center" }}>
         <svg
-          style={{ fill: "#586069", marginRight: "8px" }}
+          style={{ fill: palette.iconColor, marginRight: "8px" }}
           viewBox="0 0 16 16"
           version="1.1"
           width={16}
@@ -227,7 +241,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
             d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"
           />
         </svg>
-        <span style={{ fontWeight: 600, color: "#0366d6" }}>
+        <span style={{ fontWeight: 600, color: palette.textColor }}>
           <a
             style={{ textDecoration: "none", color: "inherit" }}
             href={data.html_url}
@@ -242,7 +256,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
         style={{
           display: data.fork ? "block" : "none",
           fontSize: "12px",
-          color: "#586069",
+          color: palette.iconColor,
         }}
       >
         Forked from{" "}
@@ -260,12 +274,14 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           fontSize: "12px",
           marginBottom: "16px",
           marginTop: "8px",
-          color: "#586069",
+          color: palette.iconColor,
         }}
       >
         {description}
       </div>
-      <div style={{ fontSize: "12px", color: "#586069", display: "flex" }}>
+      <div
+        style={{ fontSize: "12px", color: palette.iconColor, display: "flex" }}
+      >
         <div style={{ marginRight: "16px" }}>
           <span
             style={{
@@ -289,7 +305,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           }}
         >
           <svg
-            style={{ fill: "#586069" }}
+            style={{ fill: palette.iconColor }}
             aria-label="stars"
             viewBox="0 0 16 16"
             version="1.1"
@@ -311,7 +327,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           }}
         >
           <svg
-            style={{ fill: "#586069" }}
+            style={{ fill: palette.iconColor }}
             aria-label="fork"
             viewBox="0 0 16 16"
             version="1.1"
