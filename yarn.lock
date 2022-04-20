@@ -3441,7 +3441,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-fetch@npm:^2.5.7":
+"@types/node-fetch@npm:^2.5.7, @types/node-fetch@npm:^2.6.1":
   version: 2.6.1
   resolution: "@types/node-fetch@npm:2.6.1"
   dependencies:
@@ -12322,6 +12322,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.16.4
     "@testing-library/react": ^13.1.1
     "@types/jest": ^27.4.1
+    "@types/node-fetch": ^2.6.1
     "@types/react": ^18.0.5
     "@types/react-dom": ^18.0.1
     "@typescript-eslint/eslint-plugin": ^5.20.0
