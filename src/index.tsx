@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import replace from "string-replace-to-array";
-import { Endpoints, GitHubEmojiPropTypes, RepoCardPropTypes } from "./types";
+import React, { useEffect, useState } from 'react'
+import replace from 'string-replace-to-array'
+import { Endpoints, GitHubEmojiPropTypes, RepoCardPropTypes } from './types'
 
 /**
  * This is a utility hook for fetching miscellaneous content.
@@ -9,39 +9,35 @@ import { Endpoints, GitHubEmojiPropTypes, RepoCardPropTypes } from "./types";
  * @returns The content that is fetched, a loading boolean, and a hasError boolean
  */
 export const useFetch = (url: string): [unknown, boolean, boolean] => {
-  const [response, setResponse] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
+  const [response, setResponse] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [hasError, setHasError] = useState(false)
   useEffect(() => {
-    setLoading(true);
+    setLoading(true)
     fetch(url)
-      .then(async (resp) => {
-        setResponse(await resp.json());
-        setLoading(false);
+      .then(async resp => {
+        setResponse(await resp.json())
+        setLoading(false)
       })
       .catch(() => {
-        setHasError(true);
-        setLoading(false);
-      });
-  }, [url]);
-  return [response, loading, hasError];
-};
+        setHasError(true)
+        setLoading(false)
+      })
+  }, [url])
+  return [response, loading, hasError]
+}
 
 /**
  * This is a hook for fetching the [emoji names](https://api.github.com/emojis) from the official GitHub API.
  *
  * @returns The content that is fetched, a loading boolean, and a hasError boolean
  */
-export const useEmojis = (): [
-  Endpoints["GET /emojis"]["response"],
-  boolean,
-  boolean
-] =>
-  useFetch("https://api.github.com/emojis") as [
-    Endpoints["GET /emojis"]["response"],
+export const useEmojis = (): [Endpoints['GET /emojis']['response'], boolean, boolean] =>
+  useFetch('https://api.github.com/emojis') as [
+    Endpoints['GET /emojis']['response'],
     boolean,
     boolean
-  ];
+  ]
 
 /**
  * This is a hook for fetching the GitHub colors from [ozh/github-colors](https://raw.githubusercontent.com/ozh/github-colors/master/colors.json).
@@ -51,25 +47,23 @@ export const useEmojis = (): [
 export const useColors = (): [
   {
     [key: string]: {
-      color: string;
-      url: string;
-    };
+      color: string
+      url: string
+    }
   },
   boolean,
   boolean
 ] =>
-  useFetch(
-    "https://raw.githubusercontent.com/ozh/github-colors/master/colors.json"
-  ) as [
+  useFetch('https://raw.githubusercontent.com/ozh/github-colors/master/colors.json') as [
     {
       [key: string]: {
-        color: string;
-        url: string;
-      };
+        color: string
+        url: string
+      }
     },
     boolean,
     boolean
-  ];
+  ]
 
 /**
  * This is a hook for fetching the [repository information](https://api.github.com/repos/) from the official GitHub API.
@@ -79,21 +73,17 @@ export const useColors = (): [
 export const useGitHubRepo = (
   username: string,
   repository: string
-): [
-  Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"],
-  boolean,
-  boolean
-] =>
+): [Endpoints['GET /repos/{owner}/{repo}']['response']['data'], boolean, boolean] =>
   useFetch(`https://api.github.com/repos/${username}/${repository}`) as [
-    Endpoints["GET /repos/{owner}/{repo}"]["response"]["data"],
+    Endpoints['GET /repos/{owner}/{repo}']['response']['data'],
     boolean,
     boolean
-  ];
+  ]
 
 export const GitHubEmoji: React.FC<GitHubEmojiPropTypes> = ({ name }) => {
-  const [emojis, loading] = useEmojis();
+  const [emojis, loading] = useEmojis()
 
-  if (loading || !emojis[name]) return <span>{name}</span>;
+  if (loading || !emojis[name]) return <span>{name}</span>
 
   if (emojis[name]) {
     return (
@@ -101,12 +91,12 @@ export const GitHubEmoji: React.FC<GitHubEmojiPropTypes> = ({ name }) => {
         <img
           alt={name}
           src={emojis[name]}
-          style={{ width: "1rem", height: "1rem", verticalAlign: "-0.2rem" }}
+          style={{ width: '1rem', height: '1rem', verticalAlign: '-0.2rem' }}
         />
       </span>
-    );
+    )
   }
-};
+}
 
 /**
  * Use this default export to get the GitHub repository card component.
@@ -125,67 +115,57 @@ export const GitHubEmoji: React.FC<GitHubEmojiPropTypes> = ({ name }) => {
  *
  * @returns React GitHub repository card component
  */
-const RepoCard: React.FC<RepoCardPropTypes> = ({
-  username,
-  repository,
-  dark,
-  Loading,
-}) => {
-  const [data, loadingData] = useGitHubRepo(username, repository);
+const RepoCard: React.FC<RepoCardPropTypes> = ({ username, repository, dark, Loading }) => {
+  const [data, loadingData] = useGitHubRepo(username, repository)
   const palette = dark
     ? {
-        background: "#1e1e1e",
-        textColor: "#58a6ff",
-        borderColor: "#30363d",
-        iconColor: "#8b949e",
+        background: '#1e1e1e',
+        textColor: '#58a6ff',
+        borderColor: '#30363d',
+        iconColor: '#8b949e',
       }
     : {
-        background: "white",
-        textColor: "#0969da",
-        borderColor: "#d0d7de",
-        iconColor: "#57606a",
-      };
-  const [colors, loadingColors] = useColors();
+        background: 'white',
+        textColor: '#0969da',
+        borderColor: '#d0d7de',
+        iconColor: '#57606a',
+      }
+  const [colors, loadingColors] = useColors()
 
   if (loadingData || loadingColors) {
-    return Loading ? <Loading /> : <></>;
+    return Loading ? <Loading /> : <></>
   }
 
-  let description: React.ReactNode = data.description;
+  let description: React.ReactNode = data.description
   if (data.description) {
-    let emojiCount = 0;
+    let emojiCount = 0
     description = replace(data.description, /:\w+:/g, (match: string) => {
-      emojiCount += 1;
-      return (
-        <GitHubEmoji
-          key={emojiCount}
-          name={match.substring(1, match.length - 1)}
-        />
-      );
-    });
+      emojiCount += 1
+      return <GitHubEmoji key={emojiCount} name={match.substring(1, match.length - 1)} />
+    })
   }
 
   if (!description) {
-    const name = `${username}/${repository}`;
-    const url = `https://github.com/${name}`;
+    const name = `${username}/${repository}`
+    const url = `https://github.com/${name}`
     return (
       <div
         style={{
           fontFamily:
-            "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji",
-          border: "1px solid",
+            '-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
+          border: '1px solid',
           borderColor: palette.borderColor,
-          borderRadius: "6px",
+          borderRadius: '6px',
           background: palette.background,
-          padding: "16px",
-          fontSize: "14px",
-          lineHeight: "1.5",
-          color: "#24292e",
+          padding: '16px',
+          fontSize: '14px',
+          lineHeight: '1.5',
+          color: '#24292e',
         }}
       >
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <svg
-            style={{ fill: palette.iconColor, marginRight: "8px" }}
+            style={{ fill: palette.iconColor, marginRight: '8px' }}
             viewBox="0 0 16 16"
             version="1.1"
             width={16}
@@ -199,7 +179,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           </svg>
           <span style={{ fontWeight: 600, color: palette.textColor }}>
             <a
-              style={{ textDecoration: "none", color: "inherit" }}
+              style={{ textDecoration: 'none', color: 'inherit' }}
               href={url}
               target="_blank"
               rel="noreferrer"
@@ -209,27 +189,27 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           </span>
         </div>
       </div>
-    );
+    )
   }
 
   return (
     <div
       style={{
         fontFamily:
-          "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji",
-        border: "1px solid",
+          '-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
+        border: '1px solid',
         borderColor: palette.borderColor,
-        borderRadius: "6px",
+        borderRadius: '6px',
         background: palette.background,
-        padding: "16px",
-        fontSize: "14px",
-        lineHeight: "1.5",
-        color: "#24292e",
+        padding: '16px',
+        fontSize: '14px',
+        lineHeight: '1.5',
+        color: '#24292e',
       }}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <svg
-          style={{ fill: palette.iconColor, marginRight: "8px" }}
+          style={{ fill: palette.iconColor, marginRight: '8px' }}
           viewBox="0 0 16 16"
           version="1.1"
           width={16}
@@ -243,7 +223,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
         </svg>
         <span style={{ fontWeight: 600, color: palette.textColor }}>
           <a
-            style={{ textDecoration: "none", color: "inherit" }}
+            style={{ textDecoration: 'none', color: 'inherit' }}
             href={data.html_url}
             target="_blank"
             rel="noreferrer"
@@ -254,60 +234,58 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
       </div>
       <div
         style={{
-          display: data.fork ? "block" : "none",
-          fontSize: "12px",
+          display: data.fork ? 'block' : 'none',
+          fontSize: '12px',
           color: palette.iconColor,
         }}
       >
-        Forked from{" "}
+        Forked from{' '}
         <a
-          style={{ color: "inherit", textDecoration: "none" }}
-          href={data.fork ? data.source.html_url : ""}
+          style={{ color: 'inherit', textDecoration: 'none' }}
+          href={data.fork ? data.source.html_url : ''}
           target="_blank"
           rel="noreferrer"
         >
-          {data.fork ? data.source.full_name : ""}
+          {data.fork ? data.source.full_name : ''}
         </a>
       </div>
       <div
         style={{
-          fontSize: "12px",
-          marginBottom: "16px",
-          marginTop: "8px",
+          fontSize: '12px',
+          marginBottom: '16px',
+          marginTop: '8px',
           color: palette.iconColor,
         }}
       >
         {description}
       </div>
-      <div
-        style={{ fontSize: "12px", color: palette.iconColor, display: "flex" }}
-      >
-        <div style={{ marginRight: "16px" }}>
+      <div style={{ fontSize: '12px', color: palette.iconColor, display: 'flex' }}>
+        <div style={{ marginRight: '16px' }}>
           <span
             style={{
-              width: "12px",
-              height: "12px",
-              borderRadius: "100%",
+              width: '12px',
+              height: '12px',
+              borderRadius: '100%',
               backgroundColor: colors[data.language].color,
-              display: "inline-block",
-              top: "1px",
-              position: "relative",
+              display: 'inline-block',
+              top: '1px',
+              position: 'relative',
             }}
           />
           &nbsp;
           <span>{data.language}</span>
         </div>
         <a
-          style={{ textDecoration: "none", color: "inherit" }}
-          href={data.html_url + "/stargazers"}
+          style={{ textDecoration: 'none', color: 'inherit' }}
+          href={data.html_url + '/stargazers'}
           target="_blank"
           rel="noreferrer"
         >
           <div
             style={{
-              display: data.stargazers_count === 0 ? "none" : "flex",
-              alignItems: "center",
-              marginRight: "16px",
+              display: data.stargazers_count === 0 ? 'none' : 'flex',
+              alignItems: 'center',
+              marginRight: '16px',
             }}
           >
             <svg
@@ -328,15 +306,15 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
           </div>
         </a>
         <a
-          style={{ textDecoration: "none", color: "inherit" }}
-          href={data.html_url + "/network/members"}
+          style={{ textDecoration: 'none', color: 'inherit' }}
+          href={data.html_url + '/network/members'}
           target="_blank"
           rel="noreferrer"
         >
           <div
             style={{
-              display: data.forks_count === 0 ? "none" : "flex",
-              alignItems: "center",
+              display: data.forks_count === 0 ? 'none' : 'flex',
+              alignItems: 'center',
             }}
           >
             <svg
@@ -358,7 +336,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({
         </a>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default RepoCard;
+export default RepoCard

@@ -24,6 +24,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "start-storybook -p 6006",
+    "format": "prettier -w src",
     "lint": "eslint src/**/* --fix",
     "test": "jest",
     "build": "tsc",
@@ -54,6 +55,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
     "eslint-plugin-storybook": "^0.5.10",
     "jest": "^27.5.1",
     "node-fetch": "2",

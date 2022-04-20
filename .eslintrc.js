@@ -1,34 +1,25 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
-  // Specifies the ESLint parser
+  parser: '@typescript-eslint/parser',
   env: {
-    es6: true,
     node: true,
+    es6: true,
     jest: true,
   },
   extends: [
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:prettier/recommended",
-    "plugin:storybook/recommended",
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:storybook/recommended',
   ],
-  plugins: ["react"],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier', 'storybook'],
   rules: {
-    "react/prop-types": "off",
-  },
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-      impliedStrict: true,
-    },
-    ecmaVersion: 2018,
-    // Allows for the parsing of modern ECMAScript features
-    sourceType: "module", // Allows for the use of imports
+    'prettier/prettier': 'off',
+    'react/prop-types': 'off',
   },
   settings: {
     react: {
-      version: "detect",
+      version: 'detect',
     },
   },
-};
+}
