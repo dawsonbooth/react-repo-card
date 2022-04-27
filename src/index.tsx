@@ -1,101 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import replace from 'string-replace-to-array'
-import { Endpoints, GitHubEmojiPropTypes, RepoCardPropTypes } from './types'
+import React from 'react'
+import replaceStringToArray from 'string-replace-to-array'
+import { useColors, useEmojis, useRepo } from './hooks'
 
-/**
- * This is a utility hook for fetching miscellaneous content.
- * The other hooks use this one to get content from GitHub.
- *
- * @returns The content that is fetched, a loading boolean, and a hasError boolean
- */
-export const useFetch = (url: string): [unknown, boolean, boolean] => {
-  const [response, setResponse] = useState({})
-  const [loading, setLoading] = useState(true)
-  const [hasError, setHasError] = useState(false)
-  useEffect(() => {
-    setLoading(true)
-    fetch(url)
-      .then(async resp => {
-        setResponse(await resp.json())
-        setLoading(false)
-      })
-      .catch(() => {
-        setHasError(true)
-        setLoading(false)
-      })
-  }, [url])
-  return [response, loading, hasError]
-}
-
-/**
- * This is a hook for fetching the [emoji names](https://api.github.com/emojis) from the official GitHub API.
- *
- * @returns The content that is fetched, a loading boolean, and a hasError boolean
- */
-export const useEmojis = (): [Endpoints['GET /emojis']['response'], boolean, boolean] =>
-  useFetch('https://api.github.com/emojis') as [
-    Endpoints['GET /emojis']['response'],
-    boolean,
-    boolean
-  ]
-
-/**
- * This is a hook for fetching the GitHub colors from [ozh/github-colors](https://raw.githubusercontent.com/ozh/github-colors/master/colors.json).
- *
- * @returns The content that is fetched, a loading boolean, and a hasError boolean
- */
-export const useColors = (): [
-  {
-    [key: string]: {
-      color: string
-      url: string
-    }
-  },
-  boolean,
-  boolean
-] =>
-  useFetch('https://raw.githubusercontent.com/ozh/github-colors/master/colors.json') as [
-    {
-      [key: string]: {
-        color: string
-        url: string
-      }
-    },
-    boolean,
-    boolean
-  ]
-
-/**
- * This is a hook for fetching the [repository information](https://api.github.com/repos/) from the official GitHub API.
- *
- * @returns The content that is fetched, a loading boolean, and a hasError boolean
- */
-export const useGitHubRepo = (
-  username: string,
+export interface RepoCardProps {
+  username: string
   repository: string
-): [Endpoints['GET /repos/{owner}/{repo}']['response']['data'], boolean, boolean] =>
-  useFetch(`https://api.github.com/repos/${username}/${repository}`) as [
-    Endpoints['GET /repos/{owner}/{repo}']['response']['data'],
-    boolean,
-    boolean
-  ]
-
-export const GitHubEmoji: React.FC<GitHubEmojiPropTypes> = ({ name }) => {
-  const [emojis, loading] = useEmojis()
-
-  if (loading || !emojis[name]) return <span>{name}</span>
-
-  if (emojis[name]) {
-    return (
-      <span>
-        <img
-          alt={name}
-          src={emojis[name]}
-          style={{ width: '1rem', height: '1rem', verticalAlign: '-0.2rem' }}
-        />
-      </span>
-    )
-  }
+  dark?: boolean
+  fallback?: React.ReactNode
 }
 
 /**
@@ -115,11 +26,11 @@ export const GitHubEmoji: React.FC<GitHubEmojiPropTypes> = ({ name }) => {
  *
  * @returns React GitHub repository card component
  */
-const RepoCard: React.FC<RepoCardPropTypes> = ({ username, repository, dark, Loading }) => {
-  const [data, loadingData] = useGitHubRepo(username, repository)
+const RepoCard: React.FC<RepoCardProps> = ({ username, repository, dark, fallback }) => {
+  const [data, loading] = useRepo(username, repository)
   const palette = dark
     ? {
-        background: '#1e1e1e',
+        background: '#0d1117',
         textColor: '#58a6ff',
         borderColor: '#30363d',
         iconColor: '#8b949e',
@@ -131,18 +42,27 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({ username, repository, dark, Loa
         iconColor: '#57606a',
       }
   const [colors, loadingColors] = useColors()
+  const [emojis, loadingEmojis] = useEmojis()
 
-  if (loadingData || loadingColors) {
-    return Loading ? <Loading /> : <></>
+  if (loading || loadingColors || loadingEmojis) {
+    return fallback ? <>{fallback}</> : null
   }
 
-  let description: React.ReactNode = data.description
+  let description = <>{data.description}</>
   if (data.description) {
-    let emojiCount = 0
-    description = replace(data.description, /:\w+:/g, (match: string) => {
-      emojiCount += 1
-      return <GitHubEmoji key={emojiCount} name={match.substring(1, match.length - 1)} />
-    })
+    description = (
+      <>
+        {replaceStringToArray(data.description, /:(\w+):/g, (_, name, offset) => (
+          <span key={offset}>
+            <img
+              alt={name}
+              src={emojis.data[name]}
+              style={{ width: '1rem', height: '1rem', verticalAlign: '-0.2rem' }}
+            />
+          </span>
+        ))}
+      </>
+    )
   }
 
   if (!description) {
@@ -242,11 +162,11 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({ username, repository, dark, Loa
         Forked from{' '}
         <a
           style={{ color: 'inherit', textDecoration: 'none' }}
-          href={data.fork ? data.source.html_url : ''}
+          href={data.fork ? data.source?.html_url : ''}
           target="_blank"
           rel="noreferrer"
         >
-          {data.fork ? data.source.full_name : ''}
+          {data.fork ? data.source?.full_name : ''}
         </a>
       </div>
       <div
@@ -266,7 +186,7 @@ const RepoCard: React.FC<RepoCardPropTypes> = ({ username, repository, dark, Loa
               width: '12px',
               height: '12px',
               borderRadius: '100%',
-              backgroundColor: colors[data.language].color,
+              backgroundColor: colors[data.language ?? '']?.color,
               display: 'inline-block',
               top: '1px',
               position: 'relative',
