@@ -31,6 +31,7 @@
     "docs": "build-storybook -c .storybook -o docs"
   },
   "dependencies": {
+    "@storybook/addon-controls": "^6.4.22",
     "string-replace-to-array": "^2.1.0"
   },
   "devDependencies": {
@@ -38,9 +39,6 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@octokit/types": "^6.34.0",
-    "@storybook/addon-actions": "^6.5.0-alpha.64",
-    "@storybook/addon-essentials": "^6.5.0-alpha.64",
-    "@storybook/addon-links": "^6.5.0-alpha.64",
     "@storybook/react": "^6.5.0-alpha.64",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
@@ -57,7 +55,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
-    "eslint-plugin-storybook": "^0.5.10",
+    "eslint-plugin-storybook": "^0.5.11",
     "jest": "^27.5.1",
     "node-fetch": "2",
     "prettier": "^2.6.2",

@@ -1,9 +1,8 @@
 import { Meta, Story } from '@storybook/react'
 import React from 'react'
-import RepoCard from '.'
-import { RepoCardPropTypes } from './types'
+import RepoCard, { RepoCardProps } from '.'
 
-export const Example: Story<RepoCardPropTypes> = args => (
+export const Example: Story<RepoCardProps> = args => (
   <div
     style={{
       position: 'absolute',
@@ -24,7 +23,9 @@ Example.args = {
   dark: false,
 }
 
-export default {
+const story: Meta = {
   component: RepoCard,
   title: 'Example',
-} as Meta
+}
+
+export default story
